@@ -1,0 +1,20 @@
+version: "2"
+sql:
+  - schema: "pkg/components/databases/migrations"
+    queries: "sqlc/queries"
+    engine: "postgresql"
+    database:
+      uri:  "postgres://testdb:testdb123@localhost:5432/postgres"
+    gen:
+      go:
+        package: "repository"
+        out: "pkg/components/databases/repository"
+        sql_package: "pgx/v5"
+        emit_db_tags: true
+        emit_json_tags: true
+        emit_prepared_queries: true
+        emit_interface: true
+        emit_empty_slices: true
+        emit_pointers_for_null_types: true
+        emit_enum_valid_method: true
+        json_tags_case_style: "camel"
