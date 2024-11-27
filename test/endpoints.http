@@ -1,0 +1,25 @@
+@hostname = localhost
+@port = 8000
+@api_v1 = /api/v1
+
+#Hello
+GET http://{{hostname}}:{{port}}{{api_v1}}/hello
+
+###
+
+#Create User
+POST http://{{hostname}}:{{port}}{{api_v1}}/user/create
+Content-Type: application/json
+
+{
+"name": "John",
+"email": "john122@gmail.com",
+"password": "123456"
+}
+
+###
+
+#Get User
+GET http://{{hostname}}:{{port}}{{api_v1}}/user/4
+Content-Type: application/json
+
