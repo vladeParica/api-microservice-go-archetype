@@ -2,6 +2,8 @@ module github.com/vladeParica/api-microservice-go-archetype
 
 go 1.25.0
 
+toolchain go1.27.3
+
 require (
 	github.com/jackc/pgx/v5 v5.12.0
 	github.com/spf13/viper v1.21.0
