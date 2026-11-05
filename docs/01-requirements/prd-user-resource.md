@@ -36,7 +36,7 @@ Developer can copy its shape when adding new resources.
 | Enumeration of ids by an anonymous client | Possible — no auth in the archetype (see 8) |
 
 ## 6. Acceptance criteria
-- [x] Each scenario in section 5 is covered by a unit test in `internal/user`, `internal/httpx` or `internal/server`.
+- [x] Scenarios in section 5 are covered by unit tests in `internal/user`, `internal/httpx`, `internal/health` and `internal/server`, except the body size limit (see [test strategy](../04-testing/test-strategy.md)).
 - [x] Error responses use `{"error": "<message>"}` and never leak internal errors.
 - [ ] Flow verified against a real PostgreSQL instance (integration test).
 
