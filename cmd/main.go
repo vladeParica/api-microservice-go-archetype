@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/dbconfig"
-	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/repository"
+	"github.com/vladeParica/api-microservice-go-archetype/internal/database"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/config"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/config/logger"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/controllers"
@@ -34,7 +34,7 @@ func main() {
 		return
 	}
 
-	db := repository.New(pgConn)
+	db := database.New(pgConn)
 
 	serverInstance := controllers.NewServer(db, pgConn, logger)
 

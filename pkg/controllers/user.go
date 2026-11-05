@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/repository"
+	"github.com/vladeParica/api-microservice-go-archetype/internal/database"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/config/logger"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
@@ -12,7 +12,7 @@ import (
 
 func (s *Server) createUserHandler(response http.ResponseWriter, request *http.Request) {
 
-	var user repository.User
+	var user database.User
 	decoder := json.NewDecoder(request.Body)
 
 	if err := decoder.Decode(&user); err != nil {
@@ -21,7 +21,7 @@ func (s *Server) createUserHandler(response http.ResponseWriter, request *http.R
 
 	s.log.Info("request parsed", zap.Any("user", user))
 
-	createParams := repository.CreateUserParams{
+	createParams := database.CreateUserParams{
 		Name:  user.Name,
 		Email: user.Email,
 	}
@@ -41,7 +41,7 @@ func (s *Server) createUserHandler(response http.ResponseWriter, request *http.R
 	}
 
 	tx.Commit(request.Context())
-	s.JSONResponse(response, http.StatusCreated, map[string]string{"message": "User created", "id": strconv.Itoa(int(result.ID))})
+	s.JSONResponse(response, http.StatusCreated, map[string]string{"message": "User created", "id": strconv.FormatInt(result.ID, 10)})
 
 }
 
@@ -61,7 +61,7 @@ func (s *Server) getUserHandler(response http.ResponseWriter, request *http.Requ
 	}
 
 	qtx := s.queries.WithTx(tx)
-	result, err := qtx.GetUserById(request.Context(), int32(id))
+	result, err := qtx.GetUserByID(request.Context(), int64(id))
 	if err != nil {
 		s.log.Error("Error consulting user", zap.Error(err))
 		s.JSONResponse(response, http.StatusInternalServerError, map[string]string{"message": "Invalid request"})

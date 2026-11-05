@@ -3,7 +3,7 @@
 //   sqlc v1.27.0
 // source: users.sql
 
-package repository
+package database
 
 import (
 	"context"
@@ -12,12 +12,12 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (name, email)
 VALUES ($1, $2)
-    RETURNING id, name, email, created_at
+RETURNING id, name, email, created_at
 `
 
 type CreateUserParams struct {
-	Name  string `db:"name" json:"name"`
-	Email string `db:"email" json:"email"`
+	Name  string
+	Email string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
@@ -32,14 +32,14 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	return i, err
 }
 
-const getUserById = `-- name: GetUserById :one
+const getUserByID = `-- name: GetUserByID :one
 SELECT id, name, email, created_at
 FROM users
 WHERE id = $1
 `
 
-func (q *Queries) GetUserById(ctx context.Context, id int32) (User, error) {
-	row := q.db.QueryRow(ctx, getUserById, id)
+func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
+	row := q.db.QueryRow(ctx, getUserByID, id)
 	var i User
 	err := row.Scan(
 		&i.ID,

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/repository"
+	"github.com/vladeParica/api-microservice-go-archetype/internal/database"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/config"
 	"github.com/vladeParica/api-microservice-go-archetype/pkg/config/logger"
 	"fmt"
@@ -18,13 +18,13 @@ import (
 type Server struct {
 	router  *mux.Router
 	Handler http.Handler
-	queries *repository.Queries
+	queries *database.Queries
 	db      *pgxpool.Pool
 	log     *zap.Logger
 }
 
 func NewServer(
-	queries *repository.Queries,
+	queries *database.Queries,
 	db *pgxpool.Pool,
 	log *zap.Logger,
 ) *Server {
