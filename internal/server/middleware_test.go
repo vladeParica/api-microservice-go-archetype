@@ -18,7 +18,7 @@ func TestRequestLoggerSetsRequestID(t *testing.T) {
 
 	t.Run("generated", func(t *testing.T) {
 		rec := httptest.NewRecorder()
-		h.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/", nil))
+		h.ServeHTTP(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil))
 
 		if rec.Header().Get(RequestIDHeader) == "" {
 			t.Error("expected a generated request id")
@@ -29,7 +29,7 @@ func TestRequestLoggerSetsRequestID(t *testing.T) {
 	})
 
 	t.Run("propagated", func(t *testing.T) {
-		req := httptest.NewRequest(http.MethodGet, "/", nil)
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil)
 		req.Header.Set(RequestIDHeader, "abc-123")
 		rec := httptest.NewRecorder()
 		h.ServeHTTP(rec, req)
@@ -46,7 +46,7 @@ func TestRecoverer(t *testing.T) {
 	}))
 
 	rec := httptest.NewRecorder()
-	h.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/", nil))
+	h.ServeHTTP(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil))
 
 	if rec.Code != http.StatusInternalServerError {
 		t.Errorf("status = %d, want %d", rec.Code, http.StatusInternalServerError)
