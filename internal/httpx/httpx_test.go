@@ -21,7 +21,7 @@ func TestDecodeJSON(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(tt.body))
+			r := httptest.NewRequestWithContext(t.Context(), http.MethodPost, "/", strings.NewReader(tt.body))
 			var dst struct {
 				Name string `json:"name"`
 			}
@@ -36,7 +36,7 @@ func TestDecodeJSON(t *testing.T) {
 
 func TestWriteError(t *testing.T) {
 	w := httptest.NewRecorder()
-	WriteError(w, httptest.NewRequest(http.MethodGet, "/", nil), http.StatusNotFound, "not found")
+	WriteError(w, httptest.NewRequestWithContext(t.Context(), http.MethodGet, "/", nil), http.StatusNotFound, "not found")
 
 	if w.Code != http.StatusNotFound {
 		t.Errorf("status = %d, want %d", w.Code, http.StatusNotFound)

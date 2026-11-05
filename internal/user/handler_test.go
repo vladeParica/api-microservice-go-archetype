@@ -64,7 +64,7 @@ func newTestMux(repo Repository) *http.ServeMux {
 
 func do(t *testing.T, h http.Handler, method, target, body string) *httptest.ResponseRecorder {
 	t.Helper()
-	req := httptest.NewRequest(method, target, strings.NewReader(body))
+	req := httptest.NewRequestWithContext(t.Context(), method, target, strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	h.ServeHTTP(rec, req)

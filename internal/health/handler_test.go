@@ -33,7 +33,7 @@ func TestHealthEndpoints(t *testing.T) {
 			NewHandler("test", tt.deps).RegisterRoutes(mux)
 
 			rec := httptest.NewRecorder()
-			mux.ServeHTTP(rec, httptest.NewRequest(http.MethodGet, tt.target, nil))
+			mux.ServeHTTP(rec, httptest.NewRequestWithContext(t.Context(), http.MethodGet, tt.target, nil))
 
 			if rec.Code != tt.wantStatus {
 				t.Errorf("status = %d, want %d (body: %s)", rec.Code, tt.wantStatus, rec.Body)
