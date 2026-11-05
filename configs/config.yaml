@@ -1,0 +1,29 @@
+# Default configuration for local development.
+# Every key can be overridden by an environment variable using the upper-cased
+# path joined by underscores, e.g. DATABASE_PASSWORD or HTTP_PORT.
+app:
+  name: api-microservice
+  version: dev
+  environment: local
+
+http:
+  host: ""
+  port: 8080
+  read_header_timeout: 5s
+  read_timeout: 15s
+  write_timeout: 15s
+  idle_timeout: 60s
+  shutdown_timeout: 10s
+
+log:
+  level: info
+  format: text
+
+database:
+  host: localhost
+  port: 5432
+  user: app
+  password: app
+  name: app
+  sslmode: disable
+  max_conns: 10
