@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-05
+
 ### Added
 - AI-DLC lifecycle documentation, ADR-0001…0008, C4 diagrams and threat model.
 - Health probes (`/healthz`, `/readyz`), request id and panic recovery middleware.
@@ -26,4 +28,5 @@ All notable changes to this project are documented here. The format follows
 - Transactions left open on errors; panics in handlers.
 - Broken Dockerfile and untrappable `os.Kill` signal handling.
 
-[Unreleased]: https://github.com/vladeParica/api-microservice-go-archetype/commits/develop
+[Unreleased]: https://github.com/vladeParica/api-microservice-go-archetype/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/vladeParica/api-microservice-go-archetype/releases/tag/v1.0.0
