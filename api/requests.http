@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:8080
+@apiV1 = {{baseUrl}}/api/v1
+
+### Liveness
+GET {{baseUrl}}/healthz
+
+### Readiness
+GET {{baseUrl}}/readyz
+
+### Create user
+POST {{apiV1}}/users
+Content-Type: application/json
+
+{
+  "name": "John",
+  "email": "john@example.com"
+}
+
+### Get user
+GET {{apiV1}}/users/1
