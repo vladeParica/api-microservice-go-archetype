@@ -28,7 +28,7 @@ Run `make help` for all tasks.
 | [API](docs/02-design/api-contracts.md) | Endpoints and error format |
 | [Deployment](docs/05-deployment/deploy-guide.md) | Configuration and runbook |
 
-Documentation follows the [AI-DLC](docs/) lifecycle (`docs/00-project` → `06-monitoring`).
+Documentation follows the [AI-DLC](docs/README.md) lifecycle.
 
 ## License
 
