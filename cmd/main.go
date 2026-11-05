@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
-	"example.com/test/pkg/components/databases/dbconfig"
-	"example.com/test/pkg/components/databases/repository"
-	"example.com/test/pkg/config"
-	"example.com/test/pkg/config/logger"
-	"example.com/test/pkg/controllers"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/dbconfig"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/repository"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/config"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/config/logger"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/controllers"
 	"fmt"
 	"github.com/google/uuid"
 	"go.uber.org/zap"

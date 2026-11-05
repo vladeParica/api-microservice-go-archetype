@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"example.com/test/pkg/components/databases/repository"
-	"example.com/test/pkg/config/logger"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/components/databases/repository"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/config/logger"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 	"net/http"

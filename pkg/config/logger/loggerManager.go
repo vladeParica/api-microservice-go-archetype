@@ -2,7 +2,7 @@ package logger
 
 import (
 	"context"
-	"example.com/test/pkg/config"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/config"
 	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

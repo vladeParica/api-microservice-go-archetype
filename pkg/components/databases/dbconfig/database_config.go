@@ -2,7 +2,7 @@ package dbconfig
 
 import (
 	"context"
-	"example.com/test/pkg/config"
+	"github.com/vladeParica/api-microservice-go-archetype/pkg/config"
 	"fmt"
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq"

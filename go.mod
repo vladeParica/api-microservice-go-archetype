@@ -1,4 +1,4 @@
-module example.com/test
+module github.com/vladeParica/api-microservice-go-archetype
 
 go 1.22.0
 
