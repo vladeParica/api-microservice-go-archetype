@@ -30,6 +30,10 @@ Run `make help` for all tasks.
 
 Documentation follows the [AI-DLC](docs/README.md) lifecycle.
 
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md). Report vulnerabilities as described in [SECURITY](SECURITY.md).
+
 ## License
 
 [Apache 2.0](LICENSE)
