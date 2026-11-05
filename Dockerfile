@@ -1,27 +1,30 @@
-# Build stage
-FROM golang:1.20-alpine AS builder
+# syntax=docker/dockerfile:1
 
-LABEL maintainer="vparica"
+ARG GO_VERSION=1.22
 
-ENV GO111MODULE=on
-WORKDIR /go-microservice
+# ---- Build stage ----
+FROM golang:${GO_VERSION}-alpine AS build
+
+WORKDIR /src
 
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
-COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o /api-microservice-go-archetype ./cmd/main.go
+COPY . .
 
+ARG VERSION=dev
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X main.version=${VERSION}" -o /out/api ./cmd/api
 
-# Final stage
-FROM alpine:latest
+# ---- Runtime stage ----
+FROM gcr.io/distroless/static-debian12:nonroot
 
-WORKDIR "/microservice-app"
+WORKDIR /app
 
-COPY --from=builder /api-microservice-go-archetype .
+COPY --from=build /out/api /app/api
+COPY configs/config.yaml /app/configs/config.yaml
 
-EXPOSE 8000
+EXPOSE 8080
 
-RUN chmod +x ./go-microservice-template
+USER nonroot:nonroot
 
-ENTRYPOINT ["/microservice-app/api-microservice-go-archetype"]
+ENTRYPOINT ["/app/api"]
