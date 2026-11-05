@@ -4,21 +4,21 @@
 
 ```mermaid
 C4Context
-    title System context — <System name>
+    title System context — API Microservice
 
-    Person(user, "<User role>", "<what they do>")
-    Person(admin, "<Admin/operator role>", "<what they do>")
+    Person(client, "API client", "Consumes the HTTP/JSON API")
+    Person(operator, "Operator", "Deploys and monitors the service")
 
-    System(sys, "<System name>", "<one-line purpose>")
+    System(api, "API Microservice", "Generated from the archetype; exposes resources over HTTP")
 
-    System_Ext(ext1, "<External system>", "<what it provides>")
-    System_Ext(ext2, "<External system>", "<what it provides>")
+    System_Ext(db, "PostgreSQL", "Persistent storage")
+    System_Ext(logs, "Log platform", "Collects stdout logs")
 
-    Rel(user, sys, "Uses", "HTTPS")
-    Rel(admin, sys, "Operates", "HTTPS")
-    Rel(sys, ext1, "<interaction>", "<protocol>")
-    Rel(sys, ext2, "<interaction>", "<protocol>")
+    Rel(client, api, "Calls", "HTTPS/JSON")
+    Rel(operator, api, "Probes /healthz, /readyz", "HTTP")
+    Rel(api, db, "Reads/writes", "PostgreSQL protocol")
+    Rel(api, logs, "Writes structured logs", "stdout")
 ```
 
 **Notes**
-- `<any non-obvious relationship or boundary>`
+- TLS termination is expected at the ingress / load balancer in front of the service.

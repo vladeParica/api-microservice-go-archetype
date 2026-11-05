@@ -4,24 +4,20 @@
 
 ```mermaid
 C4Container
-    title Containers — <System name>
+    title Containers — API Microservice
 
-    Person(user, "<User role>")
+    Person(client, "API client")
 
-    System_Boundary(sys, "<System name>") {
-        Container(web, "Frontend", "<tech>", "<responsibility>")
-        Container(api, "Backend / API", "<tech>", "<responsibility>")
-        ContainerDb(db, "Database", "<tech>", "<what it stores>")
-        Container(other, "<Other container>", "<tech>", "<responsibility>")
+    System_Boundary(sys, "API Microservice") {
+        Container(api, "API", "Go, net/http", "Stateless HTTP service, distroless image")
+        Container(migrate, "Migrations", "golang-migrate", "Applies db/migrations before deploy")
+        ContainerDb(db, "Database", "PostgreSQL 16", "users table")
     }
 
-    System_Ext(ext, "<External system>", "<what it provides>")
-
-    Rel(user, web, "Uses", "HTTPS")
-    Rel(web, api, "Calls", "REST/JSON over HTTPS")
-    Rel(api, db, "Reads/writes", "TLS")
-    Rel(api, ext, "<interaction>", "<protocol>")
+    Rel(client, api, "Calls", "HTTPS/JSON")
+    Rel(api, db, "Reads/writes", "pgx pool")
+    Rel(migrate, db, "Applies schema", "SQL")
 ```
 
 **Notes**
-- `<encryption, boundaries, statelessness, etc.>`
+- Migrations run as a separate one-off job, never from the API process (ADR-0005).
