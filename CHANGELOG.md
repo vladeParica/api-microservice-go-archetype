@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+- Minimum Go version is now 1.25 (required by pgx 5.12); builds use the Go 1.27.3 toolchain.
+- pgx 5.7.1 → 5.12.0, viper 1.17.0 → 1.21.0.
+
 ## [1.0.0] - 2026-11-05
 
 ### Added
